@@ -1,0 +1,216 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+@import './styles/enhancements.css';
+@import './styles/background-fix.css';
+@import './styles/index-fix.css';
+@import './styles/card-enhancements.css';
+
+:root {
+  --toast-bg: #ffffff;
+  --toast-color: #1f2937;
+}
+
+body {
+  @apply antialiased;
+}
+
+.hover-scale {
+  @apply transition-transform duration-200 hover:scale-105;
+}
+
+/* Smooth transitions for all elements */
+* {
+  @apply transition-colors duration-200;
+}
+
+@layer base {
+  html {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+    @apply bg-gray-100 text-gray-900 transition-colors duration-300;
+  }
+  
+  html.dark {
+    @apply bg-gray-900 text-gray-100;
+  }
+  
+  body {
+    @apply min-h-screen antialiased;
+  }
+  
+  code, pre {
+    font-family: 'Fira Code', monospace;
+  }
+  
+  *:focus-visible {
+    @apply outline-none ring-2 ring-blue-500 ring-opacity-70;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-md rounded-xl shadow-xl transition-all duration-300;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark .glass-card {
+    background-color: rgba(17, 24, 39, 0.7);
+    border: 1px solid rgba(75, 85, 99, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  .visualizer-container {
+    @apply glass-card p-6 md:p-8 overflow-hidden;
+  }
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-secondary {
+    @apply bg-gray-600 hover:bg-gray-700 text-white font-medium px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-danger {
+    @apply bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .input-control {
+    @apply backdrop-blur-sm rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400/50 transition-all duration-200;
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    color: #1f2937;
+  }
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50;
+  }
+  .stack-item {
+    @apply bg-gradient-to-r from-blue-600 to-blue-400 text-white px-5 py-3 mb-2 rounded-lg shadow-lg shadow-blue-500/20 transform transition-all duration-300 ease-out hover:shadow-blue-500/40 hover:scale-[1.02] flex items-center justify-center relative border border-blue-300/30;
+  }
+  .stack-item.top {
+    @apply ring-2 ring-offset-2 ring-offset-purple-900 ring-yellow-400 z-10;
+  }
+  .slide-in-top {
+    @apply animate-[slideInTop_0.4s_ease-out_forwards];
+  }
+  .slide-out-top {
+    @apply animate-[slideOutTop_0.4s_ease-in_forwards];
+  }
+  .queue-item {
+    @apply bg-gradient-to-r from-green-500 to-teal-400 text-white px-5 py-3 mx-1 rounded-lg shadow-lg shadow-green-500/20 transform transition-all duration-300 ease-out hover:shadow-green-500/40 hover:scale-[1.02] flex items-center justify-center relative border border-green-300/30;
+  }
+  .queue-item.front {
+    @apply ring-2 ring-offset-2 ring-offset-purple-900 ring-blue-400 z-10;
+  }
+  .queue-item.rear {
+    @apply ring-2 ring-offset-2 ring-offset-purple-900 ring-purple-400 z-10;
+  }
+  .slide-in-right {
+    @apply animate-[slideInRight_0.5s_ease-out_forwards];
+  }
+  .slide-out-left {
+    @apply animate-[slideOutLeft_0.5s_ease-in_forwards];
+  }
+  .sort-bar {
+    @apply bg-gradient-to-t from-purple-700 to-purple-400 rounded-t-md shadow-md transition-all duration-200 mx-1 text-center relative flex flex-col justify-end overflow-hidden border-t border-l border-r border-purple-300/30;
+  }
+  .sort-bar.comparing {
+    @apply bg-gradient-to-t from-red-700 to-red-400 shadow-md shadow-red-500/50 scale-105 z-10;
+  }
+  .sort-bar.sorted {
+    @apply bg-gradient-to-t from-green-700 to-green-400 shadow-md shadow-green-500/20;
+  }
+  .bar-swap {
+    @apply animate-[swap_0.5s_ease-in-out_forwards];
+  }
+  .control-btn {
+    @apply px-5 py-3 rounded-lg font-medium text-sm md:text-base transition-all duration-300 shadow-md relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-purple-900 disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+  .status-message {
+    @apply fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg shadow-xl z-50 animate-[fadeInUp_0.3s_ease-out_forwards,fadeOutDown_0.3s_ease-in_forwards_2.7s] animate-fade-in transition-all duration-500;
+  }
+  .hover\:scale-102:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* Keyframe animations */
+@keyframes slideInTop {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutTop {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutDown {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+  }
+}
+
+@keyframes swap {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Keyframe animations and other styles are above... */

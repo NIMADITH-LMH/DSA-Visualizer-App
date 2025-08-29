@@ -1,0 +1,14 @@
+/* Smooth transitions for all elements - moved from index.css */
+* {
+  @apply transition-colors duration-200;
+}
+
+/* Additional utility classes that were duplicated in index.css */
+.status-message {
+  @apply animate-fade-in transition-all duration-500;
+}
+
+/* Fix for any duplicate glass-card styles */
+.glass-card {
+  @apply transition-all duration-300;
+}

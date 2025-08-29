@@ -1,0 +1,115 @@
+/* Background fix for DSA Visualizer - Refined with minimal decorative elements */
+
+/* Common background styles for all visualizer pages */
+body:has(a[aria-current="page"])::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15px; /* Actually tiny */
+  height: 15px; /* Actually tiny */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.003; /* Almost invisible */
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(5px); /* Heavy blur */
+  transition: opacity 0.3s ease, transform 0.5s ease;
+  animation: float 25s ease-in-out infinite; /* Very slow, subtle movement */
+}
+
+/* For the queue page - subtle icon */
+body:has(a[href='/queue'][aria-current="page"])::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 8h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2v4l-4-4H9a1.994 1.994 0 0 1-1.414-.586m0 0L11 14h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2v4l.586-.586z'/%3E%3C/svg%3E");
+}
+
+/* For the stack page - subtle icon */
+body:has(a[href='/'][aria-current="page"])::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 11H5m14 0a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2m14 0V9a2 2 0 0 0-2-2M5 11V9a2 2 0 0 1 2-2m0 0V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2M7 7h10'/%3E%3C/svg%3E");
+}
+
+/* For the sorting page - subtle icon */
+body:has(a[href='/sorting'][aria-current="page"])::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4'/%3E%3C/svg%3E");
+}
+
+/* For the algorithms page - subtle icon */
+body:has(a[href='/algorithms'][aria-current="page"])::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z'/%3E%3C/svg%3E");
+  animation: float-scale 12s ease-in-out infinite;
+}
+
+/* Add extremely subtle grid background pattern */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+    circle at 25px 25px,
+    rgba(99, 102, 241, 0.002) 1px, /* Barely perceptible */
+    transparent 0
+  );
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: -2;
+  opacity: 0.05; /* Extremely reduced opacity */
+}
+
+/* Dark mode adjustments */
+.dark body::after {
+  background-image: radial-gradient(
+    circle at 25px 25px,
+    rgba(255, 255, 255, 0.01) 1px, /* More subtle in dark mode */
+    transparent 0
+  );
+}
+
+/* Subtle floating animation for icons */
+@keyframes float {
+  0% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-5px); /* Reduced movement */
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+}
+
+/* Add a subtle scale animation for algorithm page */
+@keyframes float-scale {
+  0% {
+    transform: translate(-50%, -50%) translateY(0px) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-8px) scale(1.05);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0px) scale(1);
+  }
+}
+
+/* Ensure the actual content is always visible and positioned correctly */
+.visualizer-content {
+  position: relative;
+  z-index: 10;
+  overflow: visible;
+  /* Add subtle glass effect for visualizer content */
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+/* Add responsive adjustments */
+@media (max-width: 768px) {
+  body:has(a[aria-current="page"])::before {
+    width: 10px; /* Microscopic on mobile */
+    height: 10px;
+    opacity: 0.002;
+  }
+}
